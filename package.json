@@ -9,12 +9,11 @@
     "dist": "electron-builder",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository":"https://github.com/muhammad-albasha/lagerplaner.git",
-  "publish":
-      {
-        "provider": "github",
-        "releaseType": "release"
-      },
+  "repository": "https://github.com/muhammad-albasha/lagerplaner.git",
+  "publish": {
+    "provider": "github",
+    "releaseType": "release"
+  },
   "build": {
     "productName": "LagePlaner",
     "appId": "LP",
@@ -69,11 +68,11 @@
     {
       "type": "MIT",
       "url": "LICENSE.md"
-    }],
+    }
+  ],
   "devDependencies": {
-    "electron": "^19.0.8",
-    "electron-builder": "^22.14.13",
-    "electron-packager": "^17.1.1"
+    "electron": "^14.2.9",
+    "electron-builder": "^23.4.0"
   },
   "dependencies": {
     "electron-updater": "^5.0.5"
