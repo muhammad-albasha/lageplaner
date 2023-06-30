@@ -1,0 +1,81 @@
+{
+  "name": "lageplaner",
+  "version": "1.0.0",
+  "description": "ChatGPT Desktop Application.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository":"https://github.com/muhammad-albasha/lagerplaner.git",
+  "publish":
+      {
+        "provider": "github",
+        "releaseType": "release"
+      },
+  "build": {
+    "productName": "LagePlaner",
+    "appId": "LP",
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "icon": "./src/assets/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "installerIcon": "./src/assets/icon.ico",
+      "uninstallerIcon": "./src/assets/icon.ico",
+      "uninstallDisplayName": "LagePlaner",
+      "license": "LICENSE.md",
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "LagePlaner",
+      "allowElevation": true,
+      "perMachine": false
+    },
+    "linux": {
+      "icon": "./src/assets/icon.icns",
+      "target": [
+        "deb",
+        "snap",
+        "rpm",
+        "AppImage"
+      ],
+      "category": "Utility"
+    },
+    "deb": {
+      "icon": "./src/assets/icon.icns"
+    },
+    "directories": {
+      "buildResources": "resources",
+      "output": "release"
+    },
+    "mac": {
+      "target": [
+        "dmg"
+      ],
+      "icon": "./src/assets/icon.icns"
+    },
+    "dmg": {
+      "icon": "./src/assets/icon.icns"
+    }
+  },
+  "author": "MA",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "LICENSE.md"
+    }],
+  "devDependencies": {
+    "electron": "^19.0.8",
+    "electron-builder": "^22.14.13",
+    "electron-packager": "^17.1.1"
+  },
+  "dependencies": {
+    "electron-updater": "^5.0.5"
+  }
+}

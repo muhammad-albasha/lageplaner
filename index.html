@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>LagePlaner</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="leaflet/dist/leaflet.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f0f0;
+    }
+
+    #map {
+      height: 900px;
+      margin: 10px;
+    }
+
+    .menubar {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      background-color: #fff;
+      padding: 10px;
+      margin: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    }
+
+    button {
+      background-color: #007BFF;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+      border-radius: 4px;
+      transition-duration: 0.4s;
+    }
+
+    button:hover {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    #dialog {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    #dialog-content {
+      background-color: #fefefe;
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 30%;
+    }
+
+    #dialog-content label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    #dialog-content input {
+      width: 100%;
+      margin-bottom: 15px;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+
+    #submit {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 24px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    #submit:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="menubar">
+    <button id="saveData">Daten speichern</button>
+    <input type="file" accept="image/*" id="imageInput" style="display: none;" />
+    <button id="importImage">Karte importieren</button>
+  </div>
+  <div id="map"></div>
+  <div id="dialog">
+    <div id="dialog-content">
+      <label for="url">Url:</label>
+      <input type="text" id="url" name="url" value="http://">
+      <label for="urlText">Name:</label>
+      <input type="text" id="urlText" name="urlText">
+      <label for="desc">Beschreibung:</label>
+      <input type="text" id="desc" name="desc">
+      <button id="submit">Einreichen</button>
+    </div>
+  </div>
+
+  <script src="leaflet/dist/leaflet.js"></script>
+  <script>
+    var map = L.map('map', {
+      minZoom: 1.5,
+      maxZoom: 1.5,
+      center: [0, 0],
+      zoom: 1.5,
+      crs: L.CRS.Simple
+    });
+    var w = 240;
+    var h = 160;
+    map.setMaxBounds([[-h, -w], [h, w]]);
+    var imageOverlay = L.imageOverlay('lageplan.jpg', [[-h, -w], [h, w]]).addTo(map);
+
+    var markerData = [];
+    var dialog = document.getElementById('dialog');
+    var submitButton = document.getElementById('submit');
+    var urlInput = document.getElementById('url');
+    var urlTextInput = document.getElementById('urlText');
+    var desc = document.getElementById('desc');
+    var saveData = document.getElementById('saveData');
+    var importButton = document.getElementById('importImage');
+    var imageInput = document.getElementById('imageInput');
+    var clickedLatLng;
+    var activeMarker;
+
+    map.on('contextmenu', function (e) {
+      clickedLatLng = e.latlng;
+      dialog.style.display = "block";
+    });
+    submitButton.onclick = function () {
+      var url = urlInput.value;
+      var name = urlTextInput.value;
+      var descText = desc.value;
+
+      if (url != null && url != "" && name != null && name != "") {
+        var marker = L.marker(clickedLatLng).addTo(map);
+
+        var markerInfo = {
+          lat: clickedLatLng.lat,
+          lng: clickedLatLng.lng,
+          url: url,
+          name: name,
+          desc: descText
+        };
+        marker.on('mouseover', function () {
+          activeMarker = this;
+        });
+        marker.on('mouseout', function () {
+          activeMarker = null;
+        });
+        markerData.push(markerInfo);
+
+        marker.bindPopup('<a href="' + url + '" target="_blank">' + name + '</a>' + `<p>` + descText + `</p>`).openPopup();
+      }
+      dialog.style.display = "none";
+    };
+
+    importButton.onclick = function () {
+      imageInput.click();
+    };
+
+    imageInput.onchange = function (event) {
+      var file = event.target.files[0];
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        var image = new Image();
+        image.onload = function () {
+          var bounds = [[-h, -w], [h, w]];
+          var imageUrl = e.target.result;
+
+          map.removeLayer(imageOverlay);
+          imageOverlay = L.imageOverlay(imageUrl, bounds).addTo(map);
+        };
+        image.src = e.target.result;
+      };
+
+      reader.readAsDataURL(file);
+    };
+
+    fetch('lagerPlan.json')
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) {
+        L.geoJSON(data).addTo(map)
+          .bindPopup(function (layer) {
+            return `<a href="` + layer.feature.properties.url + `" target="_blank">` + layer.feature.properties.name + `</a>` + `<p>` + layer.feature.properties.desc + `</p>`;
+          });
+      })
+      .catch(function (error) {
+        console.error('Error:', error);
+      });
+
+    document.body.onkeydown = function (e) {
+      if (e.keyCode === 46 && activeMarker) {
+        map.removeLayer(activeMarker);
+        activeMarker = null;
+      }
+    };
+    saveData.onclick = function () {
+      var geojson = markerData.map(function (data) {
+        return {
+          "type": "Feature",
+          "geometry": {
+            "type": "Point",
+            "coordinates": [data.lng, data.lat]
+          },
+          "properties": {
+            "name": data.name,
+            "desc": data.desc,
+            "url": data.url
+          }
+        };
+      });
+
+      var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(geojson));
+      var downloadAnchorNode = document.createElement('a');
+      downloadAnchorNode.setAttribute("href", dataStr);
+      downloadAnchorNode.setAttribute("download", "lagerPlan.json");
+      document.body.appendChild(downloadAnchorNode);
+      downloadAnchorNode.click();
+      downloadAnchorNode.remove();
+    };
+  </script>
+</body>
+
+</html>
