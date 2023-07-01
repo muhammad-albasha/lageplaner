@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Leaflet Map Example</title>
+  <title>Lageplan</title>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="leaflet/dist/leaflet.css" />
@@ -26,10 +26,10 @@
     var w = 240;
     var h = 160;
     map.setMaxBounds([[-h, -w], [h, w]]);
-    L.imageOverlay('freudenberg.jpg', [[-h, -w], [h, w]]).addTo(map);
+    L.imageOverlay('lageplan.jpg', [[-h, -w], [h, w]]).addTo(map);
 
     // Load GeoJSON data from file.json
-    fetch('lagerPlan.json')
+    fetch('lageplan.json')
       .then(function (response) {
         return response.json();
       })

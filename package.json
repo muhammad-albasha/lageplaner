@@ -71,8 +71,21 @@
     }
   ],
   "devDependencies": {
-    "electron": "^14.2.9",
-    "electron-builder": "^23.4.0"
+    "@electron/get": "^2.0.2",
+    "app-builder-lib": "^24.5.2",
+    "configstore": "^6.0.0",
+    "dir-compare": "4.0.0",
+    "dmg-builder": "^24.5.2",
+    "electron": "^25.2.0",
+    "electron-builder": "^23.4.0",
+    "electron-updater": "5.0.5",
+    "got": "^11.8.5",
+    "make-dir": "^4.0.0",
+    "minimatch": "3.1.2",
+    "semver": "^7.5.3",
+    "semver-diff": "^4.0.0",
+    "simple-update-notifier": "^1.0.2",
+    "update-notifier": "^6.0.2"
   },
   "dependencies": {
     "electron-updater": "^5.0.5"

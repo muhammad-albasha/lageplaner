@@ -13,6 +13,7 @@ function createWindow() {
     fullscreenable: true,
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
+      nativeWindowOpen: true
     },
   });
 	function handleRedirect(e, url) {

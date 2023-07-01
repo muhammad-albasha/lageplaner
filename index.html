@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>LagePlaner</title>
+  <title>Lageplaner</title>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="leaflet/dist/leaflet.css" />
@@ -197,7 +197,7 @@
       reader.readAsDataURL(file);
     };
 
-    fetch('lagerPlan.json')
+    fetch('lageplan.json')
       .then(function (response) {
         return response.json();
       })
@@ -236,7 +236,7 @@
       var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(geojson));
       var downloadAnchorNode = document.createElement('a');
       downloadAnchorNode.setAttribute("href", dataStr);
-      downloadAnchorNode.setAttribute("download", "lagerPlan.json");
+      downloadAnchorNode.setAttribute("download", "lageplan.json");
       document.body.appendChild(downloadAnchorNode);
       downloadAnchorNode.click();
       downloadAnchorNode.remove();
