@@ -255,12 +255,7 @@
       if (e.keyCode === 46 && activeMarker) {
         map.removeLayer(activeMarker);
         activeMarker = null;
-      }
-    };
-    var menubar = document.querySelector('.menubar');
-
-    document.body.onkeydown = function (e) {
-      if (e.keyCode === 27) {
+      } else if (e.keyCode === 27) {
         if (menubar.style.display === 'none') {
           menubar.style.display = 'flex';
         } else {
