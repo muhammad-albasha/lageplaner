@@ -1,1 +1,47 @@
-[{"type":"Feature","geometry":{"type":"Point","coordinates":[-181.37288937434946,12.727922061357857]},"properties":{"name":"Google","desc":"hi hallo","url":"http://google.com"}},{"type":"Feature","geometry":{"type":"Point","coordinates":[-115.25840533340725,-5.303300858899107]},"properties":{"name":"UNI","desc":"hi halloasdsadsadsa","url":"http://uni-wuupertal.de"}},{"type":"Feature","geometry":{"type":"Point","coordinates":[-144.95689014324225,-47.37615433949869]},"properties":{"name":"UNI","desc":"hi halloasdsadsadsa","url":"http://uni-wuupertal.de"}}]
+[
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -106.06601717798213,
+                -13.435028842544405
+            ]
+        },
+        "properties": {
+            "name": "link",
+            "desc": "Beschreibung",
+            "url": "http://google.com"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -37.47665940288702,
+                -35.00178566873411
+            ]
+        },
+        "properties": {
+            "name": "One",
+            "desc": "schreib was",
+            "url": "http://google.cm"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                49.49747468305833,
+                -4.949747468305833
+            ]
+        },
+        "properties": {
+            "name": "Platz",
+            "desc": "bla bla bla",
+            "url": "http://google.cm"
+        }
+    }
+]

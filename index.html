@@ -15,15 +15,52 @@
     }
 
     #map {
-      height: 900px;
-      margin: 10px;
+      position: absolute;
+      height: 100vh;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+    }
+
+    .map-wrapper {
+      position: relative;
+    }
+
+    @media (min-width: 600px) {
+      #map {
+        position: absolute;
+        height: 100vh;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+      }
+    }
+
+    @media (max-width: 599px) {
+      #map {
+        position: absolute;
+        height: 100vh;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+      }
+    }
+
+    .logo {
+      width: 50px;
+      height: 50px;
+      margin-right: 10px;
+      text-align: center;
     }
 
     .menubar {
       display: flex;
-      justify-content: flex-end;
+      justify-content: space-between;
       align-items: center;
-      background-color: #fff;
+      background-color: #dddddd;
       padding: 10px;
       margin: 10px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
@@ -99,11 +136,14 @@
 
 <body>
   <div class="menubar">
-    <button id="saveData">Daten speichern</button>
-    <input type="file" accept="image/*" id="imageInput" style="display: none;" />
     <button id="importImage">Karte importieren</button>
+    <input type="file" accept="image/*" id="imageInput" style="display: none;" />
+    <img class="logo" src="src/assets/icon.png" alt="">
+    <button id="saveData">Daten speichern</button>
   </div>
-  <div id="map"></div>
+  <div class="map-wrapper">
+    <div id="map"></div>
+  </div>
   <div id="dialog">
     <div id="dialog-content">
       <label for="url">Url:</label>
@@ -119,14 +159,14 @@
   <script src="leaflet/dist/leaflet.js"></script>
   <script>
     var map = L.map('map', {
-      minZoom: 1.5,
-      maxZoom: 1.5,
+      minZoom: 1,
+      maxZoom: 3,
       center: [0, 0],
-      zoom: 1.5,
+      zoom: 1,
       crs: L.CRS.Simple
     });
-    var w = 240;
-    var h = 160;
+    var w = 250;
+    var h = 170;
     map.setMaxBounds([[-h, -w], [h, w]]);
     var imageOverlay = L.imageOverlay('lageplan.jpg', [[-h, -w], [h, w]]).addTo(map);
 
@@ -217,6 +257,18 @@
         activeMarker = null;
       }
     };
+    var menubar = document.querySelector('.menubar');
+
+    document.body.onkeydown = function (e) {
+      if (e.keyCode === 27) {
+        if (menubar.style.display === 'none') {
+          menubar.style.display = 'flex';
+        } else {
+          menubar.style.display = 'none';
+        }
+      }
+    };
+
     saveData.onclick = function () {
       var geojson = markerData.map(function (data) {
         return {
