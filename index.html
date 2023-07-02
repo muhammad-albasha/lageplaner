@@ -160,7 +160,7 @@
   <script>
     var map = L.map('map', {
       minZoom: 1,
-      maxZoom: 3,
+      maxZoom: 2,
       center: [0, 0],
       zoom: 1,
       crs: L.CRS.Simple
@@ -255,7 +255,10 @@
       if (e.keyCode === 46 && activeMarker) {
         map.removeLayer(activeMarker);
         activeMarker = null;
-      } else if (e.keyCode === 27) {
+      }
+      
+      menubar = document.querySelector('.menubar');
+      if (e.keyCode === 27) {
         if (menubar.style.display === 'none') {
           menubar.style.display = 'flex';
         } else {
