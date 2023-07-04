@@ -9,13 +9,13 @@
     "dist": "electron-builder",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": "https://github.com/muhammad-albasha/lagerplaner.git",
+  "repository": "https://github.com/muhammad-albasha/lageplaner.git",
   "publish": {
     "provider": "github",
     "releaseType": "release"
   },
   "build": {
-    "productName": "LagePlaner",
+    "productName": "Lageplaner",
     "appId": "LP",
     "win": {
       "target": [
@@ -27,12 +27,12 @@
       "oneClick": false,
       "installerIcon": "./src/assets/icon.ico",
       "uninstallerIcon": "./src/assets/icon.ico",
-      "uninstallDisplayName": "LagePlaner",
+      "uninstallDisplayName": "Lageplaner",
       "license": "LICENSE.md",
       "allowToChangeInstallationDirectory": true,
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
-      "shortcutName": "LagePlaner",
+      "shortcutName": "Lageplaner",
       "allowElevation": true,
       "perMachine": false
     },
