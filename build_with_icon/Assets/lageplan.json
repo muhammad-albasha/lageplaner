@@ -1,0 +1,1 @@
+[{"type":"Feature","geometry":{"type":"Point","coordinates":[42.90527125843187,9.078446086010388]},"properties":{"name":"Test","desc":"HI","url":"http://google.com"}},{"type":"Feature","geometry":{"type":"Point","coordinates":[-30.075249310203446,-35.398203741230674]},"properties":{"name":"Test 1","desc":"bla bla","url":"http://google.com"}}]

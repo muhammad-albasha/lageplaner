@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Lageplan</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../leaflet/dist/leaflet.css" />
+  <style>
+    #map {
+      position: absolute;
+      height: 100vh;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+    }
+
+    .map-wrapper {
+  position: relative;
+}
+
+    @media (min-width: 600px) {
+      #map {
+      position: absolute;
+      height: 100vh;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      }
+    }
+
+    @media (max-width: 599px) {
+      #map {
+      position: absolute;
+      height: 100vh;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="map-wrapper">
+    <div id="map"></div>
+  </div>
+  <script src="../leaflet/dist/leaflet.js"></script>
+  <script src="./src/script.js"></script>
+</body>
+
+</html>
